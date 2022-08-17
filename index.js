@@ -75,7 +75,28 @@ class Person {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-class Car {}
+class Car {
+  constructor(model, milesPerGallon) {
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+  }
+  fill(gallons) {
+    this.tank = this.tank + gallons;
+  }
+  drive(distance) {
+    const milesDriven = this.tank * this.milesPerGallon;
+    if (distance <= milesDriven) {
+      this.odometer = this.odometer + distance;
+      this.tank = this.tank - distance / this.milesPerGallon;
+    } else {
+      this.odometer = this.odometer + milesDriven;
+      this.tank = 0;
+      return `I ran out of fuel at ${this.odometer}!`;
+    }
+  }
+}
 
 /*
   TASK 3
@@ -90,7 +111,16 @@ class Car {}
         + {name} and {location} of course come from the instance's own properties.
 */
 
-class Lambdasian {}
+class Lambdasian {
+  constructor(obj) {
+    this.name = obj.name;
+    this.age = obj.age;
+    this.location = obj.location;
+  }
+  speak() {
+    return `Hello my name is${this.name}, I am from ${this.location}.`;
+  }
+}
 
 /*
   TASK 4
@@ -107,7 +137,20 @@ class Lambdasian {}
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
 
-class Instructor {}
+class Instructor extends Lambdasian {
+  constructor(teacher) {
+    super(teacher);
+    this.specialty = teacher.specialty;
+    this.favLanguage = teacher.favLanguage;
+    this.catchPhrase = teacher.catchPhrase;
+  }
+  demo(subject) {
+    return `Today we are learning about ${subject}`;
+  }
+  grade(student, subject) {
+    return `${student.name} receives perfect score on ${subject}`;
+  }
+}
 
 /*
   TASK 5
@@ -125,7 +168,7 @@ class Instructor {}
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
 
-class Student {}
+class Student extends Lambdasian {}
 
 /*
   TASK 6
